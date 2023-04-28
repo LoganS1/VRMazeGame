@@ -7,6 +7,7 @@ public class distanceBasedHaptics : MonoBehaviour
 {
     private Vector3 controllerPosL, controllerPosR;
     private GameObject[] walls;
+    private GameObject end;
 
     public XRBaseController controllerL, controllerR;
     public float defaultAmplitude = 0.2f;
@@ -52,29 +53,29 @@ public class distanceBasedHaptics : MonoBehaviour
         // Debug.Log("L " + closestDistanceL);
         // Debug.Log("R " + closestDistanceR);
 
-        if(usePulses){
-            if (closestDistanceL < 0.3f)
+        if(!usePulses){
+            if (closestDistanceL < 0.2f)
             {
-                controllerL.SendHapticImpulse((1 - closestDistanceL), 0.1f);
+                controllerL.SendHapticImpulse((1 - closestDistanceL*5f), 0.1f);
             }
-            if (closestDistanceR < 0.3f)
+            if (closestDistanceR < 0.2f)
             {
-                controllerR.SendHapticImpulse((1 - closestDistanceR), 0.1f);
+                controllerR.SendHapticImpulse((1 - closestDistanceR*5f), 0.1f);
             }
         }else{
             if (closestDistanceL < 0.3f)
             {
-                if (periodL > closestDistanceL)
+                if (periodL > closestDistanceL*5f)
                 {
-                    controllerL.SendHapticImpulse(1, 0.1f);
+                    controllerL.SendHapticImpulse(1, 0.05f);
                     periodL = 0;
                 }
             }
             if (closestDistanceR < 0.3f)
             {
-                if (periodR > closestDistanceR)
+                if (periodR > closestDistanceR*5f)
                 {
-                    controllerR.SendHapticImpulse(1, 0.1f);
+                    controllerR.SendHapticImpulse(1, 0.05f);
                     periodR = 0;
                 }
             }
